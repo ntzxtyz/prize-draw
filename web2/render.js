@@ -92,6 +92,8 @@ class Session {
             throw new Error("Tick length mismatch");
         }
 
+
+
         for(let i = 0; i < tick.current.length; i++) {
             this.elements[i].style.backgroundImage = "url(" + tick.current[i].avatar + ")";
         }
@@ -99,11 +101,15 @@ class Session {
         this.current = tick.current;
     }
 
+
     complete() {
+        const log = require("electron-log");
+        log.transports.file = "./log.txt";
         for(let i = 0; i < this.current.length; i++) {
             let label = document.createElement("div");
             label.className = "person-label";
             label.innerText = this.current[i].studentId + " / " + this.current[i].studentName;
+            log.info(this.current[i].studentId);
             this.elements[i].appendChild(label);
         }
     }
